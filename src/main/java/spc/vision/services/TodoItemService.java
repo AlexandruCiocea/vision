@@ -6,9 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import spc.vision.models.StatusOfMeasurements;
-import spc.vision.models.TodoItem;
-import spc.vision.models.TypeOfPart;
+import spc.vision.models.*;
 import spc.vision.repositories.TodoItemRepository;
 
 import java.sql.Timestamp;
@@ -103,4 +101,11 @@ public class TodoItemService {
         return todoItemRepository.findAllByOrderByIdDesc().stream().filter(i->i.getStatusOfMeasurements().equals(StatusOfMeasurements.MEASUREMENTS_FINISHED)).count();
     }
 
+//    public MachineNumber machineNumberOP8100() {
+//
+//        if (OperationNumber.OP8100 == OperationNumber.OP8100) {
+//            return MachineNumber.valueOf(String.valueOf(MachineNumber.M1));
+//        }if else(OperationNumber.OP8010 == OperationNumber.OP8010)
+//        return null;
+//    }
 }
