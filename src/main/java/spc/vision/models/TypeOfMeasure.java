@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public enum TypeOfMeasure {
 
-    FIRST_OFF("FO"),
+    FIRST_OFF("FIRST_OFF"),
     SPC("SPC"),
     CORRECTION("CORRECTION"),
     SETTINGS("SETTINGS");

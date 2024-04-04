@@ -29,10 +29,10 @@ public class TodoItem {
     private TypeOfMeasure typeOfMeasure;
 
     @Enumerated(EnumType.STRING)
-    private MachineNumber machineNumber;
+    private OperationNumber operationNumber;
 
     @Enumerated(EnumType.STRING)
-    private OperationNumber operationNumber;
+    private MachineNumber machineNumber;
 
     @Enumerated(EnumType.STRING)
     private UnitOfMachine unitOfMachine;
