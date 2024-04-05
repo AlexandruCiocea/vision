@@ -12,6 +12,7 @@ import spc.vision.repositories.TodoItemRepository;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -101,11 +102,5 @@ public class TodoItemService {
         return todoItemRepository.findAllByOrderByIdDesc().stream().filter(i->i.getStatusOfMeasurements().equals(StatusOfMeasurements.MEASUREMENTS_FINISHED)).count();
     }
 
-//    public MachineNumber machineNumberOP8100() {
-//
-//        if (OperationNumber.OP8100 == OperationNumber.OP8100) {
-//            return MachineNumber.valueOf(String.valueOf(MachineNumber.M1));
-//        }if else(OperationNumber.OP8010 == OperationNumber.OP8010)
-//        return null;
-//    }
+
 }

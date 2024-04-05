@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -47,6 +49,7 @@ public class TodoItem {
     private Timestamp finishedAt;
 
     private String duration;
+
 
     @Override
     public String toString() {

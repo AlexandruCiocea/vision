@@ -8,8 +8,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import spc.vision.models.MachineNumber;
+import spc.vision.models.OperationNumber;
 import spc.vision.models.TodoItem;
 import spc.vision.services.TodoItemService;
+
+import java.util.List;
 
 @Controller
 public class TodoFormController {
@@ -38,27 +43,6 @@ public class TodoFormController {
         todoItemService.save(todoItem);
         return "redirect:/index";
     }
-
-//    @PostMapping("/todo")
-//    public String createTodoItem( Model model) {
-//
-//        model.addAttribute();
-//        item.setDescription(todoItem.getDescription());
-//        item.setTypeOfMeasure(todoItem.getTypeOfMeasure());
-//        item.setOperation(todoItem.getOperation());
-////        item.setMachine(
-////                if(todoItem.getOperation().equals(Operation.OP8100)){
-////            todoItem.getMachine(Machine.M1);
-////        }else todoItem.setMachine(Machine.M2);
-////        );
-//        item.setMachine(todoItem.getMachine());
-//        item.setUnit(todoItem.getUnit());
-//        item.setStatus(todoItem.getStatus());
-//        item.setIsComplete(todoItem.getIsComplete());
-//
-//        todoItemService.save(todoItem);
-//        return "redirect:/index";
-//    }
 
 
     @GetMapping("/delete/{id}")
