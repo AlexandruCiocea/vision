@@ -12,6 +12,7 @@ import spc.vision.repositories.TodoItemRepository;
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -32,15 +33,14 @@ public class TodoItemService {
 
     public List<TodoItem> findAllByOrderByIdDesc(){
 
-        PageRequest pageRequest = PageRequest.of(0, 30, Sort.by(Sort.Direction.DESC, "id"));
+        PageRequest pageRequest = PageRequest.of(0, 20, Sort.by(Sort.Direction.DESC, "id"));
 
         // Fetch the last 20 items from the repository
         Page<TodoItem> page = todoItemRepository.findAll(pageRequest);
 
         // Extract the content (items) from the page
-        List<TodoItem> last20Items = page.getContent();
 
-        return last20Items;
+        return page.getContent();
 
     }
 
@@ -90,17 +90,28 @@ public class TodoItemService {
 
     }
 
-    public Long countMeasureNotStarted(){
-        return todoItemRepository.findAllByOrderByIdDesc().stream().filter(i->i.getStatusOfMeasurements().equals(StatusOfMeasurements.MEASUREMENTS_NOT_STARTED)).count();
+    public List<TodoItem> findLast20() {
+        List<TodoItem> allItems = todoItemRepository.findAll();
+        List<TodoItem> data = new ArrayList<>(allItems);
+
+        long totalEntries = (long) data.size();
+        long countLast20 = Math.min(20, totalEntries);
+
+        return data.subList(Math.toIntExact(totalEntries - countLast20), Math.toIntExact(totalEntries));
     }
 
-    public Long countMeasureInPending(){
-        return todoItemRepository.findAllByOrderByIdDesc().stream().filter(i->i.getStatusOfMeasurements().equals(StatusOfMeasurements.MEASUREMENTS_IN_PROGRESS)).count();
+    public Long countMeasureNotStarted() {
+        List<TodoItem> last20Items = findLast20();
+        return last20Items.stream().filter(i -> i.getStatusOfMeasurements().equals(StatusOfMeasurements.MEASUREMENTS_NOT_STARTED)).count();
     }
 
-    public Long countMeasureFinished(){
-        return todoItemRepository.findAllByOrderByIdDesc().stream().filter(i->i.getStatusOfMeasurements().equals(StatusOfMeasurements.MEASUREMENTS_FINISHED)).count();
+    public Long countMeasureInPending() {
+        List<TodoItem> last20Items = findLast20();
+        return last20Items.stream().filter(i -> i.getStatusOfMeasurements().equals(StatusOfMeasurements.MEASUREMENTS_IN_PROGRESS)).count();
     }
 
-
+    public Long countMeasureFinished() {
+        List<TodoItem> last20Items = findLast20();
+        return last20Items.stream().filter(i -> i.getStatusOfMeasurements().equals(StatusOfMeasurements.MEASUREMENTS_FINISHED)).count();
+    }
 }
