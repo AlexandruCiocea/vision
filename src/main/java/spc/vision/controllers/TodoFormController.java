@@ -8,13 +8,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import spc.vision.models.MachineNumber;
-import spc.vision.models.OperationNumber;
+
 import spc.vision.models.TodoItem;
 import spc.vision.services.TodoItemService;
 
-import java.util.List;
+
 
 @Controller
 public class TodoFormController {
@@ -41,7 +39,7 @@ public class TodoFormController {
         item.setIsComplete(todoItem.getIsComplete());
 
         todoItemService.save(todoItem);
-        return "redirect:/index";
+        return "redirect:/view-technician";
     }
 
 
@@ -52,7 +50,13 @@ public class TodoFormController {
                 .orElseThrow(() -> new IllegalArgumentException("TodoItem id: " + id + " not found"));
 
         todoItemService.delete(todoItem);
-        return "redirect:/index";
+        return "redirect:/view-technician";
+    }
+
+    @GetMapping("/deletelast/{id}")
+    public String deleteLastTodoItem(@PathVariable("id") Long id, Model model) {
+        todoItemService.deleteLastEntry();
+        return "redirect:/view-operators";
     }
 
     @GetMapping("/edit/{id}")
@@ -78,7 +82,7 @@ public class TodoFormController {
 
         todoItemService.save(item);
 
-        return "redirect:/index";
+        return "redirect:/view-technician";
     }
 
 }

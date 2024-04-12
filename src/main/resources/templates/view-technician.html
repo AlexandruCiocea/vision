@@ -1,0 +1,137 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <title>Technician View</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <style>
+  body {
+    background-color: #F0F8FF;
+    font: 400 12px ;
+    line-height: 1.8;
+    color: #000000;
+  }
+
+  .jumbotron {
+    background-color: #f4511e;
+    color: #fff;
+    padding: 10px 10px;
+    font-family: Montserrat, sans-serif;
+}
+        .td {
+             border: 1px solid black;
+             padding: 10px;
+             text-align: center;
+             vertical-align: middle;
+        }
+
+     .navbar {
+    margin-bottom: 0;
+    background-color: #f4511e;
+    z-index: 9999;
+    border: 0;
+    font-size: 20px !important;
+    line-height: 1.42857143 !important;
+    letter-spacing: 4px;
+    border-radius: 0;
+    font-family: Montserrat, sans-serif;
+  }
+  .navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #f4511e !important;
+    background-color: #fff !important;
+  }
+  .navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #fff !important;
+  }
+
+  @media (min-width: 400px) {
+  .navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+  }
+}
+  </style>
+</head>
+
+<body>
+
+<nav class="nav navbar-nav navbar-left">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+
+            </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="myNavbar">
+            <ul class="nav navbar-nav navbar-left">
+                <li><a  style="color:white;" href="/home"> Back</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="jumbotron text-center" >
+    <h1>Măsurători</h1>
+</div>
+
+<table style="width:100%;font-family: Arial, sans-serif; font-size: 12px;font-weight: bold;" class="table table-bordered text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th style="text-align:center">Nr</th>
+                    <th style="text-align:center">Tipul de Piesă</th>
+                    <th style="text-align:center">Tipul de măsurătoare</th>
+                    <th style="text-align:center">Operația</th>
+                    <th style="text-align:center">Mașina</th>
+                    <th style="text-align:center">Unitatea</th>
+                    <th style="text-align:center">Status</th>
+<!--                    <th style="text-align:center">Măsurătoare finalizată ?</th>-->
+                    <th style="text-align:center">Data și ora de intrare</th>
+                    <th style="text-align:center">Data și ora de update</th>
+                    <th style="text-align:center">Data și ora de ieșire</th>
+                    <th style="text-align:center">Durata</th>
+                    <th style="text-align:center">Editare</th>
+                </tr>
+            </thead>
+
+            <tbody class="text-center">
+<!--                <tr th:each="item : ${todoItems}" th:class="${item.isComplete} ? 'alert alert-success' : 'alert alert-warning'">-->
+                <tr th:each="item : ${todoItems}" th:class="${item.isComplete} ? 'alert alert-success' : 'alert alert-warning'">
+                    <td th:text="${item.id}"></td>
+                    <td th:text="${item.typeOfPart}"></td>
+                    <td th:text="${item.typeOfMeasure}"></td>
+                    <td th:text="${item.operationNumber}"></td>
+                    <td th:text="${item.machineNumber}"></td>
+                    <td th:text="${item.unitOfMachine}"></td>
+                    <td th:text="${item.statusOfMeasurements}"></td>
+<!--                    <td>-->
+<!--                        <span th:if="${item.isComplete} == true" th:text="DA"></span>-->
+<!--                        <span th:unless="${item.isComplete} == true" th:text="NU"></span>-->
+<!--                    </td>-->
+                    <td th:text="${item.createdAt}"></td>
+                    <td th:text="${item.updatedAt}"></td>
+                    <td th:text="${item.finishedAt}"></td>
+                    <td th:text="${item.duration}"></td>
+                    <td>
+                        <div class="btn btn-group-sm" role="group">
+                            <a class="btn btn-info" th:href="@{/edit/{id}(id=${item.id})}">
+                                <i class="bi bi-pencil-fill"></i> Editare</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</body>
+</html>

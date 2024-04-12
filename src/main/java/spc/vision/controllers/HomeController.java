@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
 import spc.vision.services.TodoItemService;
 
 @Controller
@@ -14,19 +13,23 @@ public class HomeController {
     @Autowired
     private TodoItemService todoItemService;
 
+    @GetMapping("/home")
+    public String home(Model model) {
+        return "home";
+    }
 
-//    @GetMapping("/index")
-//    public ModelAndView index() {
-//        ModelAndView modelAndView = new ModelAndView("index");
-//        modelAndView.addObject("todoItems", todoItemService.findAllByOrderByIdDesc());
-//        return modelAndView;
-//    }
-
-    @GetMapping("/index")
+    @GetMapping("/view-technician")
     public String index(Model model) {
 
         model.addAttribute("todoItems",todoItemService.findAllByOrderByIdDesc());
-        return "index";
+        return "view-technician";
+    }
+
+    @GetMapping("/view-operators")
+    public String viewOperators(Model model) {
+
+        model.addAttribute("todoItems",todoItemService.findAllByOrderByIdDesc());
+        return "view-operators";
     }
 
     @GetMapping("/view")

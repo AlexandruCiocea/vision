@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Măsurători în timp real</title>
+    <title>View measurements in real time</title>
     <meta charset="utf-8">
     <meta http-equiv="refresh" content="10" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,7 +20,6 @@
         function drawCharts() {
             drawChart1();
             drawChart2();
-            drawChart3();
         }
 
         function drawChart1() {
@@ -28,18 +27,18 @@
             var pack2 = [[${pack2}]];
             var my26 = [[${my26}]];
              var data = google.visualization.arrayToDataTable([
-                ['Label', 'Value'],
-                ['Pack1', pack1],
-                ['Pack2', pack2],
-                ['MY26', my26]
-            ]);
+        ['Label', 'Value', { role: 'annotation' }],
+        ['Pack1', pack1, pack1],
+        ['Pack2', pack2, pack2],
+        ['MY26', my26, my26]
+    ]);
 
             var options = {
                 title: 'Measurements per reference (%)',
                 is3D:true,
-                width: 450,
+                width: 443,
                 height: 200,
-                colors: ['silver', '#339900','#CC0099'],
+                colors: ['silver','#CC0099','#339900'],
                 backgroundColor: {fill: '#f4511e', fillOpacity: 0.5},
             };
 
@@ -54,14 +53,14 @@
 
     var data = google.visualization.arrayToDataTable([
         ['Label', 'Value', { role: 'style' }, { role: 'annotation' }],
-        ['In metrology', notStarted, '#c0c0c0', notStarted],
-        ['In the process of measurement', inPending, '#ffff00', inPending],
-        ['Measurement finished', finished, '#008000', finished]
+        ['Samples in metrology', notStarted, '#e5e4e2', notStarted],
+        ['In the process of measuring', inPending, '#fff600', inPending],
+        ['Measurements completed', finished, '#32cd32', finished]
     ]);
 
     var options = {
-        title: 'Number of samples',
-        width: 450,
+        title: 'The number of samples per shift',
+        width: 443,
         height: 200,
         backgroundColor: { fill: '#f4511e', fillOpacity: 0.5 },
         legend: { position: 'none' }, // Hide the legend
@@ -85,7 +84,6 @@
   .jumbotron {
     background-color: #f4511e;
     color: #fff;
-    font-size: 1px;
     padding: 1px;
     font-family: Montserrat, sans-serif;
   }
@@ -101,59 +99,55 @@
 </head>
 
 <body>
-<div style = "font-size: 2px;" class="jumbotron text-center">
-    <h1>SPC Monitoring</h1></div>
+<div class="jumbotron text-center">
+    <h1 style="font-size: 40px">SPC Monitoring</h1>
 
-<div style="display: flex; justify-content: center; margin: 0 auto;">
-    <div style="width: 34%;">
-        <div id="piechart_3d" class="panel" style="margin-left: 10px;margin-right: 35px;"></div>
+    <div style="display: flex; justify-content: center; margin: 0 auto;">
+        <div style="width: 34%;">
+            <div id="piechart_3d" class="panel" style="margin-left: 10px;margin-right: 35px;"></div>
+        </div>
+        <div style="width: 34%;">
+            <div id="ColumnChart" class="panel" style="margin-left: 35px;margin-right: 10px;"></div>
+        </div>
     </div>
-    <div style="width: 34%;">
-        <div id="ColumnChart" class="panel" style="margin-left: 35px;margin-right: 10px;"></div>
-    </div>
+
 </div>
 
+<table style="width:100%;font-family: Arial, sans-serif; font-size: 12px;font-weight: bold;" class="table table-bordered text-center">
 
-        <table style="width:100%;font-family: Arial, sans-serif; font-size: 12px;font-weight: bold;" class="table table-bordered text-center">
+    <thead class="thread-dark">
+    <tr>
+        <th style="text-align:center">ID</th>
+        <th style="text-align:center">Type Of Part</th>
+        <th style="text-align:center">Type Of Measure</th>
+        <th style="text-align:center">Operation</th>
+        <th style="text-align:center">Machine</th>
+        <th style="text-align:center">Unit</th>
+        <th style="text-align:center">Status</th>
+        <th style="text-align:center">Measurements arrived</th>
+        <th style="text-align:center">Measurements started</th>
+        <th style="text-align:center">Measurements finished</th>
+        <th style="text-align:center">Measurements duration</th>
+    </tr>
+    </thead>
+    <tbody class="text-center">
+    <tr th:each="item : ${todoItems}" th:class="${item.isComplete} ? 'alert alert-success' : 'alert alert-warning'">
 
-            <thead class="thread-dark">
-            <tr>
-                <th style="text-align:center">ID</th>
-                <th style="text-align:center">Type Of Part</th>
-                <th style="text-align:center">Type Of Measure</th>
-                <th style="text-align:center">Operation</th>
-                <th style="text-align:center">Machine</th>
-                <th style="text-align:center">Unit</th>
-                <th style="text-align:center">Status</th>
-<!--                <th style="text-align:center">Measurement Finish ?</th>-->
-                <th style="text-align:center">Measurements arrived</th>
-                <th style="text-align:center">Measurements started</th>
-                <th style="text-align:center">Measurements finished</th>
-                <th style="text-align:center">Measurements duration</th>
-            </tr>
-            </thead>
-            <tbody class="text-center">
-            <tr th:each="item : ${todoItems}" th:class="${item.isComplete} ? 'alert alert-success' : 'alert alert-warning'">
+        <td th:text="${item.id}"></td>
+        <td th:text="${item.typeOfPart}"></td>
+        <td th:text="${item.typeOfMeasure}"></td>
+        <td th:text="${item.operationNumber}"></td>
+        <td th:text="${item.machineNumber}"></td>
+        <td th:text="${item.unitOfMachine}"></td>
+        <td th:text="${item.statusOfMeasurements}"></td>
+        <td th:text="${item.createdAt}"></td>
+        <td th:text="${item.updatedAt}"></td>
+        <td th:text="${item.finishedAt}"></td>
+        <td th:text="${item.duration}"></td>
 
-                <td th:text="${item.id}"></td>
-                <td th:text="${item.typeOfPart}"></td>
-                <td th:text="${item.typeOfMeasure}"></td>
-                <td th:text="${item.operationNumber}"></td>
-                <td th:text="${item.machineNumber}"></td>
-                <td th:text="${item.unitOfMachine}"></td>
-                <td th:text="${item.statusOfMeasurements}"></td>
-<!--                <td>-->
-<!--                    <span th:if="${item.isComplete} == true" th:text="YES" />-->
-<!--                    <span th:unless="${item.isComplete} == true" th:text="NO" />-->
-<!--                </td>-->
-                <td th:text="${item.createdAt}"></td>
-                <td th:text="${item.updatedAt}"></td>
-                <td th:text="${item.finishedAt}"></td>
-                <td th:text="${item.duration}"></td>
-
-            </tr>
-            </tbody>
-        </table>
-    <script th:src="@{/webjars/bootstrap/5.2.2/js/bootstrap.min.js}"></script>
-    </body>
-    </html>
+    </tr>
+    </tbody>
+</table>
+<script th:src="@{/webjars/bootstrap/5.2.2/js/bootstrap.min.js}"></script>
+</body>
+</html>

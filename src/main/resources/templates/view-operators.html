@@ -1,8 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <!-- Theme Made By www.w3schools.com -->
-    <title>SPC Vision Map</title>
+
+    <title>Operator View</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -30,7 +30,19 @@
              text-align: center;
              vertical-align: middle;
         }
-
+ .navbar li a, .navbar .navbar-brand {
+    color: #fff !important;
+<!--    background-color: #fff !important;-->
+  }
+  .navbar-nav li a:hover, .navbar-nav li.active a {
+    color: #f4511e !important;
+    background-color: #fff !important;
+  }
+  .navbar-default .navbar-toggle {
+    border-color: transparent;
+    color: #f4511e !important;
+    background-color: #fff  !important;
+  }
   @media (min-width: 400px) {
   .navbar-nav.navbar-center {
     position: absolute;
@@ -54,22 +66,22 @@
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
             <li><a style="color:white;" href="/create-todo" class="btn btn-info btn-lg">
-                <span class="glyphicon glyphicon-plus"></span>Măsurătoare nouă</a></li>
+                <span class="glyphicon glyphicon-plus"></span> Măsurătoare nouă</a></li>
 
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a style="color:white;" href="/view" class="btn btn-info btn-lg">
-                   <span class="glyphicon glyphicon-off"></span>Mod Vizualizare</a></li>
+            <li><a style="color:white;" href="/home" class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-home"></span> Back</a></li>
         </ul>
     </div>
 </nav>
 
-    <div class="jumbotron text-center">
-        <h1>Tabel măsurători</h1>
-    </div>
+<div class="jumbotron text-center" >
+    <h1>Măsurători</h1>
+</div>
 
-        <table style="width:100%" class="table table-bordered text-center">
+<table style="width:100%;font-family: Arial, sans-serif; font-size: 12px;font-weight: bold;" class="table table-bordered text-center">
             <thead class="table-dark">
                 <tr>
                     <th style="text-align:center">Nr</th>
@@ -79,17 +91,12 @@
                     <th style="text-align:center">Mașina</th>
                     <th style="text-align:center">Unitatea</th>
                     <th style="text-align:center">Status</th>
-                    <th style="text-align:center">Măsurătoare finalizată ?</th>
                     <th style="text-align:center">Data și ora de intrare</th>
-                    <th style="text-align:center">Data și ora de update</th>
-                    <th style="text-align:center">Data și ora de ieșire</th>
-                    <th style="text-align:center">Durata</th>
-                    <th style="text-align:center">Editare / Ștergere</th>
+                    <th style="text-align:center">Ștergere</th>
                 </tr>
             </thead>
 
             <tbody class="text-center">
-<!--                <tr th:each="item : ${todoItems}" th:class="${item.isComplete} ? 'alert alert-success' : 'alert alert-warning'">-->
                 <tr th:each="item : ${todoItems}" th:class="${item.isComplete} ? 'alert alert-success' : 'alert alert-warning'">
                     <td th:text="${item.id}"></td>
                     <td th:text="${item.typeOfPart}"></td>
@@ -98,19 +105,10 @@
                     <td th:text="${item.machineNumber}"></td>
                     <td th:text="${item.unitOfMachine}"></td>
                     <td th:text="${item.statusOfMeasurements}"></td>
-                    <td>
-                        <span th:if="${item.isComplete} == true" th:text="DA"></span>
-                        <span th:unless="${item.isComplete} == true" th:text="NU"></span>
-                    </td>
                     <td th:text="${item.createdAt}"></td>
-                    <td th:text="${item.updatedAt}"></td>
-                    <td th:text="${item.finishedAt}"></td>
-                    <td th:text="${item.duration}"></td>
                     <td>
                         <div class="btn btn-group-sm" role="group">
-                            <a class="btn btn-info" th:href="@{/edit/{id}(id=${item.id})}">
-                                <i class="bi bi-pencil-fill"></i> Editare</a>
-                            <a class="btn btn-danger" th:href="@{/delete/{id}(id=${item.id})}">
+                            <a class="btn btn-danger" th:href="@{/deletelast/{id}(id=${item.id})}">
                                 <i class="bi bi-trash-fill"></i> Stergere</a>
                         </div>
                     </td>

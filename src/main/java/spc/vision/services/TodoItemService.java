@@ -13,7 +13,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,6 +76,17 @@ public class TodoItemService {
         todoItemRepository.delete(todoItem);
     }
 
+    public void deleteLastEntry() {
+        // Fetch the last entry from the repository
+        TodoItem lastItem = todoItemRepository.findTopByOrderByIdDesc();
+
+        // Check if the lastItem is not null
+        if (lastItem != null) {
+            // Delete the last entry
+            todoItemRepository.delete(lastItem);
+        }  // Handle the case where there are no entries in the repository
+
+    }
 
     public Long countPartPack1(){
         return todoItemRepository.findAll().stream().filter(i-> i.getTypeOfPart().equals(TypeOfPart.MY21_Pack1)).count();

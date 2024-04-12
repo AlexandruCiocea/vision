@@ -15,4 +15,6 @@ public interface TodoItemRepository extends JpaRepository<TodoItem,Long> {
 
     @Query("SELECT ti FROM TodoItem ti ORDER BY ti.id DESC")
     public List<TodoItem> findLast20();
+
+    TodoItem findTopByOrderByIdDesc();
 }
